@@ -16,6 +16,8 @@ kubectl create -f .
 In your master node do
 
 ```sh
+cd ..
+docker pull mongo
 chmod +x initiate.sh
 ./initiate.sh
 ```

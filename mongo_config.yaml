@@ -30,7 +30,7 @@ spec:
       hostname: mongocfg1
       containers:
       - image: mongo:latest
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         name: mongocfg1
         ports:
         - name: mongocfg1
@@ -81,7 +81,7 @@ spec:
       hostname: mongocfg2
       containers:
       - image: mongo:latest
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         name: mongocfg2
         ports:
         - name: mongocfg2
@@ -132,7 +132,7 @@ spec:
       hostname: mongocfg3
       containers:
       - image: mongo:latest
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         name: mongocfg3
         ports:
         - name: mongocfg3
