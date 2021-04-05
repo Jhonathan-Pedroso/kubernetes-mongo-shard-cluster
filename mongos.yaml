@@ -36,8 +36,8 @@ spec:
         - name: mongos1
           containerPort: 27017
         volumeMounts:
-            - name: mongos1
-              mountPath: /data/db
+        - name: mongos1
+          mountPath: /data/db
         command: ["mongos"]
         args: ["--configdb", "cfgrs/mongocfg1:27019,mongocfg2:27019,mongocfg3:27019", "--bind_ip_all"]
         resources:
@@ -87,8 +87,8 @@ spec:
         - name: mongos2
           containerPort: 27017
         volumeMounts:
-            - name: mongos2
-              mountPath: /data/db
+        - name: mongos2
+          mountPath: /data/db
         command: ["mongos"]
         args: ["--configdb", "cfgrs/mongocfg1:27019,mongocfg2:27019,mongocfg3:27019", "--bind_ip_all"]
         resources:
