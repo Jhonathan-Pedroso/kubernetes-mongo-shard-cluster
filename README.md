@@ -5,6 +5,13 @@ Mongo db  shard cluster built on kubernetes. This configuration include:
  - 4 shard  with 3 node as replica set for each shard
  - 2 node as mongos router
 
+
+## First create your persistent storage (change storage parameters for your application):
+``` sh
+cd ./dev
+kubectl create -f .
+```
+
 ## Deploy cluster
 In your master node do
 
