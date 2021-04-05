@@ -12,12 +12,15 @@ spec:
   selector:
     run: mongosh1-1
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongosh1-1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: mongosh1-1
   template:
     metadata:
       labels:
@@ -28,6 +31,7 @@ spec:
       hostname: mongosh1-1
       containers:
       - image: mongo:latest
+        imagePullPolicy: Never
         name: mongosh1-1
         ports:
         - name: mongosh1-1
@@ -37,6 +41,10 @@ spec:
               mountPath: /data/db
         command: ["mongod"]
         args: ["--noprealloc", "--smallfiles", "--replSet", "rs1", "--dbpath","/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
+        resources:
+          requests:
+            cpu: 0.2
+            memory: 200Mi        
       volumes:
         - name: mongosh1-1
           #persistentVolumeClaim:
@@ -56,12 +64,15 @@ spec:
   selector:
     run: mongosh1-2
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongosh1-2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: mongosh1-2  
   template:
     metadata:
       labels:
@@ -72,6 +83,7 @@ spec:
       hostname: mongosh1-2
       containers:
       - image: mongo:latest
+        imagePullPolicy: Never
         name: mongosh1-2
         ports:
         - name: mongosh1-2
@@ -81,6 +93,10 @@ spec:
               mountPath: /data/db
         command: ["mongod"]
         args: ["--noprealloc", "--smallfiles", "--replSet", "rs1", "--dbpath","/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
+        resources:
+          requests:
+            cpu: 0.2
+            memory: 200Mi        
       volumes:
         - name: mongosh1-2
           #persistentVolumeClaim:
@@ -100,12 +116,15 @@ spec:
   selector:
     run: mongosh1-3
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongosh1-3
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: mongosh1-3  
   template:
     metadata:
       labels:
@@ -116,6 +135,7 @@ spec:
       hostname: mongosh1-3
       containers:
       - image: mongo:latest
+        imagePullPolicy: Never
         name: mongosh1-3
         ports:
         - name: mongosh1-3
@@ -125,6 +145,10 @@ spec:
               mountPath: /data/db
         command: ["mongod"]
         args: ["--noprealloc", "--smallfiles", "--replSet", "rs1", "--dbpath","/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
+        resources:
+          requests:
+            cpu: 0.2
+            memory: 200Mi        
       volumes:
         - name: mongosh1-3
           #persistentVolumeClaim:

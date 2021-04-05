@@ -11,12 +11,15 @@ spec:
   selector:
     run: mongos1
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongos1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: mongos1
   template:
     metadata:
       labels:
@@ -27,6 +30,7 @@ spec:
       hostname: mongos1
       containers:
       - image: mongo:latest
+        imagePullPolicy: Never
         name: mongos1
         ports:
         - name: mongos1
@@ -36,6 +40,10 @@ spec:
               mountPath: /data/db
         command: ["mongos"]
         args: ["--configdb", "cfgrs/mongocfg1:27019,mongocfg2:27019,mongocfg3:27019", "--bind_ip_all"]
+        resources:
+          requests:
+            cpu: 0.2
+            memory: 200Mi
       volumes:
         - name: mongos1
 #          persistentVolumeClaim:
@@ -54,12 +62,15 @@ spec:
   selector:
     run: mongos2
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongos2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: mongos2
   template:
     metadata:
       labels:
@@ -70,6 +81,7 @@ spec:
       hostname: mongos1
       containers:
       - image: mongo:latest
+        imagePullPolicy: Never
         name: mongos2
         ports:
         - name: mongos2
@@ -79,6 +91,10 @@ spec:
               mountPath: /data/db
         command: ["mongos"]
         args: ["--configdb", "cfgrs/mongocfg1:27019,mongocfg2:27019,mongocfg3:27019", "--bind_ip_all"]
+        resources:
+          requests:
+            cpu: 0.2
+            memory: 200Mi
       volumes:
         - name: mongos2
 #          persistentVolumeClaim:
