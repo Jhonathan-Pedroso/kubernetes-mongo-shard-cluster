@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: mongosh1-1
+  name: mongosh2-3
 spec:
   accessModes:
     - ReadWriteMany

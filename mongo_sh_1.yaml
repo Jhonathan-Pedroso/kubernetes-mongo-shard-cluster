@@ -43,8 +43,11 @@ spec:
         args: ["--shardsvr", "--replSet", "rs1", "--dbpath", "/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
         resources:
           requests:
-            cpu: 0.2
-            memory: 200Mi        
+            cpu: 200m
+            memory: 200Mi
+          limits:
+            cpu: 4000m
+            memory: 200Mi
       volumes:
         - name: mongosh1-1
           persistentVolumeClaim:
@@ -95,8 +98,11 @@ spec:
         args: ["--shardsvr", "--replSet", "rs1", "--dbpath", "/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
         resources:
           requests:
-            cpu: 0.2
-            memory: 200Mi        
+            cpu: 200m
+            memory: 200Mi
+          limits:
+            cpu: 4000m
+            memory: 200Mi
       volumes:
         - name: mongosh1-2
           persistentVolumeClaim:
@@ -147,8 +153,11 @@ spec:
         args: ["--shardsvr", "--replSet", "rs1", "--dbpath", "/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
         resources:
           requests:
-            cpu: 0.2
-            memory: 200Mi        
+            cpu: 200m
+            memory: 200Mi
+          limits:
+            cpu: 4000m
+            memory: 200Mi
       volumes:
         - name: mongosh1-3
           persistentVolumeClaim:

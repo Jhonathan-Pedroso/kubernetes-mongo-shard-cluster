@@ -1,4 +1,4 @@
-# Mongo shard replica set 3 node 1
+# Mongo shard replica set 1 node 1
 apiVersion: v1
 kind: Service
 metadata:
@@ -12,12 +12,15 @@ spec:
   selector:
     run: mongosh3-1
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongosh3-1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: mongosh3-1
   template:
     metadata:
       labels:
@@ -28,21 +31,26 @@ spec:
       hostname: mongosh3-1
       containers:
       - image: mongo:latest
+        imagePullPolicy: IfNotPresent
         name: mongosh3-1
         ports:
         - name: mongosh3-1
           containerPort: 27017
         volumeMounts:
-            - name: mongosh3-1
-              mountPath: /data/db
+        - name: mongosh3-1
+          mountPath: /data/db
         command: ["mongod"]
-        args: ["--noprealloc", "--smallfiles", "--replSet", "rs3", "--dbpath","/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
+        args: ["--shardsvr", "--replSet", "rs3", "--dbpath", "/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
+        resources:
+          requests:
+            cpu: 0.2
+            memory: 200Mi        
       volumes:
         - name: mongosh3-1
-          #persistentVolumeClaim:
-          #  claimName: mongosh3-1
+          persistentVolumeClaim:
+           claimName: mongosh3-1
 ---
-# Mongo shard replica set 3 node 2
+# Mongo shard replica set 1 node 2
 apiVersion: v1
 kind: Service
 metadata:
@@ -56,12 +64,15 @@ spec:
   selector:
     run: mongosh3-2
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongosh3-2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: mongosh3-2  
   template:
     metadata:
       labels:
@@ -72,21 +83,26 @@ spec:
       hostname: mongosh3-2
       containers:
       - image: mongo:latest
+        imagePullPolicy: IfNotPresent
         name: mongosh3-2
         ports:
         - name: mongosh3-2
           containerPort: 27017
         volumeMounts:
-            - name: mongosh3-2
-              mountPath: /data/db
+        - name: mongosh3-2
+          mountPath: /data/db
         command: ["mongod"]
-        args: ["--noprealloc", "--smallfiles", "--replSet", "rs3", "--dbpath","/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
+        args: ["--shardsvr", "--replSet", "rs3", "--dbpath", "/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
+        resources:
+          requests:
+            cpu: 0.2
+            memory: 200Mi        
       volumes:
         - name: mongosh3-2
-          #persistentVolumeClaim:
-          #  claimName: mongosh3-2
+          persistentVolumeClaim:
+           claimName: mongosh3-2
 ---
-# Mongo shard replica set 3 node 3
+# Mongo shard replica set 1 node 3
 apiVersion: v1
 kind: Service
 metadata:
@@ -100,12 +116,15 @@ spec:
   selector:
     run: mongosh3-3
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongosh3-3
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: mongosh3-3  
   template:
     metadata:
       labels:
@@ -116,16 +135,21 @@ spec:
       hostname: mongosh3-3
       containers:
       - image: mongo:latest
+        imagePullPolicy: IfNotPresent
         name: mongosh3-3
         ports:
         - name: mongosh3-3
           containerPort: 27017
         volumeMounts:
-            - name: mongosh3-3
-              mountPath: /data/db
+        - name: mongosh3-3
+          mountPath: /data/db
         command: ["mongod"]
-        args: ["--noprealloc", "--smallfiles", "--replSet", "rs3", "--dbpath","/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
+        args: ["--shardsvr", "--replSet", "rs3", "--dbpath", "/data/db", "--noauth", "--port", "27017", "--bind_ip_all"]
+        resources:
+          requests:
+            cpu: 0.2
+            memory: 200Mi        
       volumes:
         - name: mongosh3-3
-          #persistentVolumeClaim:
-          #  claimName: mongosh3-3
+          persistentVolumeClaim:
+           claimName: mongosh3-3
